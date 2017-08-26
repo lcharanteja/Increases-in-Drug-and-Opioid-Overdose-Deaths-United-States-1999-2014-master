@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+ 	<meta charset="utf-8">
+ 	<title> CSE 564 - Final Project</title>
+  <script>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+       
+</script>
+ 	<style type="text/css">
+    body {
+ /* margin: 15px;*/
+  background-color: #F1F3F3    
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #D4D8DA;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+.x path {
+    display: none;
+}
+ .toolTip {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        position: absolute;
+        display: none;
+        width: auto;
+        height: auto;
+        background: none repeat scroll 0 0 white;
+        border: 0 none;
+        border-radius: 8px 8px 8px 8px;
+        box-shadow: -3px 3px 15px #888888;
+        color: black;
+        font: 12px sans-serif;
+        padding: 5px;
+        text-align: center;
+    }
+    .barGender {
+           float: left;
+           width:500px;
+        }
+
+    .barGender h2 {
+        width: 400px;
+        font-size: small;
+        text-align: center;
+        background-color: #808B9B;
+    }
+
+    .barAge h2 {
+        width: 400px;
+        font-size: small;
+        text-align: center;
+        background-color: #808B9B;
+    }
+
+    .barAge {
+           float: left;
+           width:400px;
+           /*margin-left: 400px*/
+        }
+
+    .filter {
+               float: left;
+               padding-top: 4%;
+               margin-left: 3%;
+        }
+
+    .wrapper {
+          margin-left: 5%;
+          height:450px;
+          /*margin-right: auto;*/
+        }
+
+      span {
+        font-size: larger;
+        font-style: italic;
+        text-decoration: underline;
+      }
+      pieTip{
+        max-width: 100px;
+        min-width: 40px;
+        height: 50px;
+      }
+     rect{
+	 	  fill:salmon;
+ 	    }
+     text{
+ 	     	font-family: sans-serif;
+ 	     	font-size: 12px;
+ 	     	fill:black;
+        text-anchor: middle;
+ 	     }
+    .line{
+    fill: none;
+    stroke: blue;
+    stroke-width: 5px;
+    }
+ 	  .button1{
+	 	background-color: #008CBA; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px
+		}
+     .button2{
+    background-color: gray; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px
+    }
+
+/*   .fDnodes {
+    fill: green;
+    stroke: #fff;
+    stroke-width: 2px;
+    }
+
+   .fDlinks {
+    stroke: #777;
+    stroke-width: 2px;
+    }*/
+
+     .buttondiv {
+           margin-left: 271px;
+    margin-top: 295px;
+}
+    }
+
+    #wrapper1 {
+    width: 1100px;
+    height:460px;
+    margin-left: 132px;
+    }
+
+ /*   #first {
+    float:left;
+    width: 50%;
+    height: 50%;
+    background: yellow;
+   }
+   #second {
+    float:left;
+    width: 50%;
+    height: 50%;
+    background: green;
+  }*/
+  #third {
+    float:left;
+    width: 50%;
+    height: 50%;
+  }
+  #fourth {
+    float:left;
+    width: 50%;
+    height: 50%;
+  }
+
+ 	</style>
+ </head>
+ <body bgcolor="black">
+
+    <div align="center" margin="auto">
+      <form action="/filterData">
+         <input type="submit"  class = "button2" value="The Map" />
+      </form>
+      <br>
+      <form action="/">
+         <input type="submit"  class = "button2" value="The Dashboard" />
+      </form>
+      <br>
+    </div>
+    <br>
+
+    
+     <div class="wrapper">
+        <div  class="barGender">
+        <h2>Drug Poisoning Deaths by Sex, <span class="ageracespan">All Races-All Origins</span>, All Ages:  United States, <span class="ageyearspan">1999</span></h2>
+        <div id="barGender"></div>
+        </div>
+        <div  class="barAge" >
+        <h2>Drug Poisoning Deaths by Age, <span class="ageracespan">All Races-All Origins</span>, Both Sexes: United States, <span class="ageyearspan">1999</span></h2>
+        <div id="barAge"></div>
+        </div>
+        <div  class="filter">
+        <div>
+          <label for="sliderYear">Year</label>
+          <input id="sliderYear" name="sliderYear" type="range" value=1999 min="1999" max="2014" step="1" />
+          <output for="sliderYear" id="rangeText">1999</output>
+        </div>
+          <p>Race</p>
+          <input type="radio" name="filter"  checked="checked"  value="All Races-All Origins"/> All Races-All Origins<br>
+          <input type="radio" name="filter" value="White"> White<br>
+          <input type="radio" name="filter" value="Black or African American"> Black or African American<br>
+          <input type="radio" name="filter" value="Asian or Pacific Islander"> Asian or Pacific Islander<br>
+          <input type="radio" name="filter" value="American Indian or Alaska Native"> American Indian or Alaska Native<br>
+
+        </div>
+     <br>
+     <div id="wrapper1" align="center">
+        <!-- <div id="first"></div>
+        <div id="second"></div> -->
+        <div id="third"></div>
+        <div id="fourth"></div>
+    </div>
+    <div class="buttondiv">
+    <button  class = "button2"onclick="drawViz(1);"> Cause</button>
+    <button  class = "button2"onclick="drawViz(2);"> Age-Group</button>
+    <button  class = "button2"onclick="drawViz(3);"> Gender</button>
+    <button  class = "button2"onclick="drawViz(4);"> Race</button>
+     </div>
+</body>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="./static/js/d3.slider.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+  <script src="./static/js/bar1.js" ></script>
+  <script src="./static/js/index.js" ></script>
+  <script src="../static/js/d3-tip.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+</html>

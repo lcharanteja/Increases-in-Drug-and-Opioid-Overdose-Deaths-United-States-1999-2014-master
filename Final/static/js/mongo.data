@@ -1,0 +1,54 @@
+db.nation_wide.aggregate(
+   [
+     {
+       $group:
+         {
+           '_id':{'age':"$age_group",'year':'1999','race':"$race"},
+           'totalAmount': { '$sum': '$deaths' }
+         }
+     },
+     {'$project':{'age_group':'$_id.age','year':"$_id.year",'race':"$_id.race",'deaths':'$totalAmount','_id':0}}
+   ]
+)
+
+db.nation_wide.aggregate(
+   [ {'$match':{ $and:[{'race': 'White','year':2003}]}},
+         {
+           '$group':
+             {
+               '_id':{'age':"$age_group",'race':'$race','year':'$year'},
+               'totalAmount': { '$sum': '$deaths' }
+             }
+         },
+         {'$project':{'label':'$_id.age','race':"$_id.race",'value':'$totalAmount','_id':0}}
+       ]
+)
+
+
+db.nation_wide.aggregate(
+   [ {'$match':{ $and:[{'race': 'White','year':2003,'age_group':''}]} },
+     {
+       '$group':
+         {
+           '_id':{'gender':"$gender",'race':'$race','year':'$year'},
+           'totalAmount': { '$sum': '$deaths' }
+         }
+     },
+     {'$project':{'label':'$_id.gender','race':"$_id.race",'value':'$totalAmount','_id':0}}
+   ]
+)
+
+db.nation_wide.aggregate(
+   [ {'$match':{ '$and':[{'race': 'White','year':2003,}]}} ,
+         {
+           '$group':
+             {
+               '_id':{'gender':"$gender",'race':'$race','year':'$year'},
+               'totalAmount': { '$sum': '$deaths' }
+             }
+         },
+         {'$project':{'label':'$_id.gender','race':"$_id.race",'value':'$totalAmount','_id':0}}
+       ]
+)
+
+db.dataset.aggregate([{'$group':{'_id': {'rx':'$Prescriptions Dispensed by US Retailers in that year (millions)','year':'$Year', 'state':"$State"},'totalDeaths':{'$sum':'$Deaths'}}},{'$project':{'rx':'$_id.rx', 'year':'$_id.year','state':"$_id.state", 'deaths':'$totalDeaths','_id':0}}])

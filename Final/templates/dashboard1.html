@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body {
+  margin: 15px;
+  background-color: #F1F3F3    
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #D4D8DA;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
+.x path {
+    display: none;
+}
+ .toolTip {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        position: absolute;
+        display: none;
+        width: auto;
+        height: auto;
+        background: none repeat scroll 0 0 white;
+        border: 0 none;
+        border-radius: 8px 8px 8px 8px;
+        box-shadow: -3px 3px 15px #888888;
+        color: black;
+        font: 12px sans-serif;
+        padding: 5px;
+        text-align: center;
+    }
+    .barGender {
+           float: left;
+           width:33.33%;
+        }
+
+    .barGender h2 {
+        width: 100%;
+        font-size: small;
+        text-align: center;
+        background-color: #808B9B;
+    }
+
+    .barAge h2 {
+        width: 100%;
+        font-size: small;
+        text-align: center;
+        background-color: #808B9B;
+    }
+
+    .barAge {
+           float: left;
+           width:33.33%;
+           margin-left: 2%
+        }
+
+    .filter {
+               float: left;
+               padding-top: 4%;
+               margin-left: 5%;
+        }
+
+    .wrapper {
+          margin-left: 1%;
+          /*margin-right: auto;*/
+          width:100%;
+        }
+
+      span {
+        font-size: larger;
+        font-style: italic;
+        text-decoration: underline;
+      }
+</style>
+
+<script>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+       
+</script>
+</head>
+<body>
+    <div class="wrapper">
+        <div  class="barGender">
+        <h2>Drug Poisoning Deaths by Sex, <span class="ageracespan">All Races-All Origins</span>, <span class="agespan">All Ages</span>:  United States, <span class="ageyearspan">1999</span></h2>
+        <div id="barGender"></div>
+        </div>
+        <div  class="barAge" >
+        <h2>Drug Poisoning Deaths by Age, <span class="ageracespan">All Races-All Origins</span>, <span class="genderspan">Both Sexes</span>: United States, <span class="ageyearspan">1999</span></h2>
+        <div id="barAge"></div>
+        </div>
+        <div  class="filter">
+        <div>
+          <label for="sliderYear">Year</label>
+          <input id="sliderYear" name="sliderYear" type="range" value=1999 min="1999" max="2014" step="1" />
+          <output for="sliderYear" id="rangeText">1999</output>
+        </div>
+          <p>Race</p>
+          <input type="radio" name="filter"  checked="checked"  value="All Races-All Origins"/> All Races-All Origins<br>
+          <input type="radio" name="filter" value="White"> White<br>
+          <input type="radio" name="filter" value="Black or African American"> Black or African American<br>
+          <input type="radio" name="filter" value="Asian or Pacific Islander"> Asian or Pacific Islander<br>
+          <input type="radio" name="filter" value="American Indian or Alaska Native"> American Indian or Alaska Native<br>
+
+        </div>
+    </div>
+</body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="./static/js/d3.slider.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+<script src="./static/js/bar1.js" ></script>
+</html>

@@ -1,0 +1,52 @@
+fips,state,state_abr,region,provider_count,opioid_claim_count,total_claim_count,percent_opioid_claim
+1,Alabama,AL,East South Central,"16,629","3,077,778","41,527,649",7.41
+2,Alaska,AK,Pacific,"2,275","69,247","1,281,219",5.4
+4,Arizona,AZ,Mountain,"21,091","1,420,024","22,876,772",6.21
+5,Arkansas,AR,West South Central,"11,770","1,666,509","26,409,600",6.31
+6,California,CA,Pacific,"116,518","7,060,208","140,233,028",5.03
+8,Colorado,CO,Mountain,"23,970","1,344,459","20,948,147",6.42
+9,Connecticut,CT,New England,"17,556","656,081","16,542,303",3.97
+10,Delaware,DE,South Atlantic,"3,330","232,418","3,797,136",6.12
+11,District of Columbia,DC,South Atlantic,"4,325","62,045","1,883,746",3.29
+12,Florida,FL,South Atlantic,"66,204","5,246,788","108,822,851",4.82
+13,Georgia,GA,South Atlantic,"37,537","4,098,519","67,288,142",6.09
+15,Hawaii,HI,Pacific,"4,053","151,452","4,534,721",3.34
+16,Idaho,ID,Mountain,"5,792","484,391","6,944,138",6.98
+17,Illinois,IL,East North Central,"50,206","2,686,209","57,862,377",4.64
+18,Indiana,IN,East North Central,"28,393","3,068,333","48,217,001",6.36
+19,Iowa,IA,West North Central,"13,062","1,065,434","23,676,936",4.5
+20,Kansas,KS,West North Central,"11,963","1,104,366","18,895,664",5.84
+21,Kentucky,KY,East South Central,"22,563","2,866,751","49,948,192",5.74
+22,Louisiana,LA,West South Central,"19,136","1,973,051","34,366,785",5.74
+23,Maine,ME,New England,"5,994","401,546","7,102,015",5.65
+24,Maryland,MD,South Atlantic,"25,620","1,003,420","19,542,427",5.13
+25,Massachusetts,MA,New England,"37,411","1,246,472","33,297,421",3.74
+26,Michigan,MI,East North Central,"45,536","3,921,544","55,919,753",7.01
+27,Minnesota,MN,West North Central,"25,632","1,335,645","29,159,468",4.58
+28,Mississippi,MS,East South Central,"13,097","1,824,476","29,854,828",6.11
+29,Missouri,MO,West North Central,"25,940","2,781,606","47,628,862",5.84
+30,Montana,MT,Mountain,"4,223","301,520","4,986,157",6.05
+31,Nebraska,NE,West North Central,"8,050","558,392","12,315,177",4.53
+32,Nevada,NV,Mountain,"7,178","670,816","8,953,800",7.49
+33,New Hampshire,NH,New England,"6,396","293,022","5,709,652",5.13
+34,New Jersey,NJ,Middle Atlantic,"35,963","1,509,349","41,229,315",3.66
+35,New Mexico,NM,Mountain,"7,173","424,557","7,301,220",5.81
+36,New York,NY,Middle Atlantic,"93,045","2,688,183","101,613,062",2.65
+37,North Carolina,NC,South Atlantic,"46,208","4,585,489","79,607,828",5.76
+38,North Dakota,ND,West North Central,"3,030","176,146","4,466,001",3.94
+39,Ohio,OH,East North Central,"52,848","4,559,597","84,350,475",5.41
+40,Oklahoma,OK,West South Central,"13,662","1,607,370","21,765,898",7.38
+41,Oregon,OR,Pacific,"19,278","1,396,599","20,727,318",6.74
+42,Pennsylvania,PA,Middle Atlantic,"63,835","3,922,150","87,444,210",4.49
+44,Rhode Island,RI,New England,"4,831","232,873","6,348,416",3.67
+45,South Carolina,SC,South Atlantic,"17,262","1,866,503","28,892,349",6.46
+46,South Dakota,SD,West North Central,"4,549","287,005","6,357,012",4.51
+47,Tennessee,TN,East South Central,"34,742","4,469,554","64,661,919",6.91
+48,Texas,TX,West South Central,"78,714","6,146,256","106,160,751",5.79
+49,Utah,UT,Mountain,"8,841","523,465","7,566,198",6.92
+50,Vermont,VT,New England,"2,837","153,014","2,961,040",5.17
+51,Virginia,VA,South Atlantic,"42,038","2,732,857","51,838,479",5.27
+53,Washington,WA,Pacific,"25,924","1,578,994","25,069,305",6.3
+54,West Virginia,WV,South Atlantic,"8,878","989,866","16,328,298",6.06
+55,Wisconsin,WI,East North Central,"27,142","1,820,636","35,357,228",5.15
+56,Wyoming,WY,Mountain,"1,816","92,917","1,786,399",5.2

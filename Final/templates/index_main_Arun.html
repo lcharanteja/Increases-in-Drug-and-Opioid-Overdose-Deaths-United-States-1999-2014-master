@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style type="text/css">
+      pieTip{
+        max-width: 100px;
+        min-width: 40px;
+        height: 50px;
+      }
+     rect{
+      fill:salmon;
+      }
+     text{
+        font-family: sans-serif;
+        font-size: 12px;
+        fill:white;
+        text-anchor: middle;
+       }
+    .line{
+    fill: none;
+    stroke: white;
+    stroke-width: 2px;
+    }
+    .button1{
+    background-color: #008CBA; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px
+    }
+     .button2{
+    background-color: gray; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px
+    }
+
+   .fDnodes {
+    fill: green;
+    stroke: #fff;
+    stroke-width: 2px;
+    }
+
+   .fDlinks {
+    stroke: #777;
+    stroke-width: 2px;
+    }
+
+  </style>
+<script src="//d3js.org/d3.v4.min.js"></script>
+
+ </head>
+
+<body>
+  <body bgcolor="black">
+    <br>
+     <div align="center" margin="auto">
+      <form action="/">
+         <input type="submit"  class = "button1" value="Home" />
+      </form>
+    </div>
+    <br>
+    <div align="center">
+    <button  class = "button2"onclick="drawViz(1);"> Cause</button>
+    <button  class = "button2"onclick="drawViz(2);"> Age-Group</button>
+    <button  class = "button2"onclick="drawViz(3);"> Gender</button>
+    <button  class = "button2"onclick="drawViz(4);"> Race</button>
+    </div>
+
+<div id="AA" align="center"></div>
+<script>
+width = 760;
+height = 500;
+var margin = {top: 20, right: 20, bottom: 30, left: 30};
+
+var svg = d3.select("#AA")
+            .append("svg")
+            .attr("width",width  + margin.left + margin.right + 10)
+            .attr("height",height + margin.top + margin.bottom+10);
+/*
+var svg = d3.select("svg"),
+    margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = svg.attr("width") - margin.left - margin.right,
+    height = svg.attr("height") - margin.top - margin.bottom;
+*/
+
+//var parseDate = d3.timeParse("%Y %b %d");
+//drawViz("aaa");
+
+function drawViz(path){
+var parseDate = d3.timeParse("%Y");
+
+var x = d3.scaleTime().range([0, width]),
+    y = d3.scaleLinear().range([height, 0]),
+    z = d3.scaleOrdinal(d3.schemeCategory10);
+
+var stack = d3.stack();
+
+var area = d3.area()
+    .x(function(d, i) { return x(d.data.year); })
+    .y0(function(d) { /*console.log("y0 %s",d[0]);*/ return y(d[0]); })
+    .y1(function(d) { /*console.log("y1 %s",d[1]);*/ return y(d[1]); });
+
+var g = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      path_cause = "../static/data/copyOfYearcauseDeath.csv";
+      path_age = "../static/data/copyOfYearAgeGroupDeath.csv";
+      path_gender = "../static/data/copyOfYearGenderDeath.csv";
+      path_race = "../static/data/copyOfYearRaceDeath.csv";
+       final_path = "";
+      if(path ==1){
+        final_path = path_cause;  
+      }
+      else if(path==2){
+        final_path = path_age;
+      }
+      else if (path==3){
+        final_path = path_gender;
+      }
+      else if (path == 4){
+        final_path = path_race;
+      }
+
+      d3.csv(final_path, type,  function(error, data){ 
+        if (error) throw error;
+
+        var keys = data.columns.slice(1);
+
+         console.log(keys);
+
+        x.domain(d3.extent(data, function(d) { return d.year; }));
+        z.domain(keys);
+        stack.keys(keys);
+
+        var layer = g.selectAll(".layer")
+          .data(stack(data))
+          .enter().append("g")
+            .attr("class", "layer");
+
+        layer.append("path")
+            .attr("class", "area")
+            .style("fill", function(d) {return z(d.key); })
+            .attr("d", area);
+
+        layer.filter(function(d) { return d[d.length - 1][1] - d[d.length - 1][0] > 0.01; })
+          .append("text")
+            .attr("x", width-6)
+            .attr("y", function(d) { return y((d[d.length - 1][0] + d[d.length - 1][1]) / 2); })
+            .attr("dy", ".35em")
+            .style("font", "10px sans-serif")
+            .style("text-anchor", "end")
+            .text(function(d) { return d.key; });
+
+        g.append("g")
+            .attr("class", "axis axis--x")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        g.append("g")
+            .attr("class", "axis axis--y")
+            .call(d3.axisLeft(y).ticks(10, "%"));
+      });
+
+function type(d, i, columns) {
+  console.log(d);
+  d.year = parseDate(d.year);
+  total = 0;
+
+  for (var i = 1, n = columns.length; i < n; ++i)
+  {
+   
+   total = total+( +d[columns[i]]);
+   //d[columns[i]] = d[columns[i]] / 100;
+
+  }
+
+  console.log(total);
+
+  for (var i = 1, n = columns.length; i < n; ++i)
+  {
+   
+   console.log(d[columns[i]])
+
+   d[columns[i]] = d[columns[i]]/total;
+
+   //d[columns[i]] = d[columns[i]] /;
+
+  }
+  console.log(d);
+  return d;
+  }
+
+}// drawViz ends here
+
+
+</script>
+
+</body>
+</html>
