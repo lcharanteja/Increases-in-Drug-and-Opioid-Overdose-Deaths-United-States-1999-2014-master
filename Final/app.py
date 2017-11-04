@@ -19,7 +19,7 @@ FIELDS = {'_id': False}
 """ Main method - CT"""
 @app.route("/")
 def index():
-    cleanAndLoad()
+    #cleanAndLoad()
     return render_template("index_main.html")
 
 
@@ -47,7 +47,7 @@ def USSexData():
     db = client.final
     coll = db.nation_wide
     race = urlparse(request.args.get('race','White',type=str)).path
-    year = request.args.get('year',type=int)
+    year = request.args.get('year',1999,type=int)
     print year
     if race == 'All Races-All Origins':
         print 'if'
@@ -73,10 +73,12 @@ def USSexData():
          },
          {'$project':{'label':'$_id.gender','race':"$_id.race",'value':'$totalAmount','_id':0}}
        ]
-    data = list(coll.aggregate(pipeline=pipe))
+    data = coll.aggregate(pipeline=pipe)
+    print(data)
     json_data = []
     count = 0
-    for d in data:
+    for d in data['result']:
+    	print d
         count += d['value']
         json_data.append(d)
     json_data.append({'label':'Both Sexes','value':count})
@@ -118,7 +120,7 @@ def USSexDataByAge():
      {'$project':{'label':'$_id.gender','race':"$_id.race",'value':'$totalAmount','_id':0}}
    ]
 
-    data = list(coll.aggregate(pipeline=pipe))
+    data = coll.aggregate(pipeline=pipe)['result']
     json_data = []
     count = 0
     for d in data:
@@ -160,7 +162,7 @@ def USAgeGroupData():
          },
          {'$project':{'label':'$_id.age','race':"$_id.race",'value':'$totalAmount','_id':0}}
        ]
-    data = list(coll.aggregate(pipeline=pipe))
+    data = coll.aggregate(pipeline=pipe)['result']
     json_data = []
     count = 0
     for d in data:
@@ -225,7 +227,7 @@ def USAgeGroupDataByGender():
          },
          {'$project':{'label':'$_id.age','race':"$_id.race",'value':'$totalAmount','_id':0}}
        ]
-    data = list(coll.aggregate(pipeline=pipe))
+    data = coll.aggregate(pipeline=pipe)['result']
     json_data = []
     count = 0
     for d in data:
