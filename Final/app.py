@@ -19,7 +19,7 @@ FIELDS = {'_id': False}
 """ Main method - CT"""
 @app.route("/")
 def index():
-    #cleanAndLoad()
+    cleanAndLoad()
     return render_template("index_main.html")
 
 
@@ -330,7 +330,7 @@ def cleanAndLoad():
     
     #pipe = [{'$group':{'_id':'$Prescriptions Dispensed by US Retailers in that year (millions)','totalDeaths':{'$sum':'$Deaths'}}}]
     pipe = [{'$group':{'_id': {'rx':'$Prescriptions Dispensed by US Retailers in that year (millions)','year':'$Year'},'totalDeaths':{'$sum':'$Deaths'}}},{'$project':{'rx':'$_id.rx', 'year':'$_id.year','deaths':'$totalDeaths','_id':0}}]
-    dataXYZ= pd.DataFrame(list(coll.aggregate(pipeline=pipe)))
+    dataXYZ= pd.DataFrame(list(coll.aggregate(pipeline=pipe)['result']))
     #dataXYZ.rename(columns={'_id':'rx','totalDeaths':'deaths'},inplace=True)
     dataXYZ.to_csv('./static/data/copyOfrxDeathYear.csv',index=None)
     coll_rx_death = client.final.rx_death  
@@ -353,8 +353,8 @@ def cleanAndLoad():
 
     """ year cause death """
     pipe = [{'$group':{'_id': {'year':'$year','cause':'$cause'},'totalDeaths':{'$sum':'$deaths'}}},{'$project':{'year':'$_id.year', 'cause':'$_id.cause', 'deaths':'$totalDeaths','_id':0}}]
-    abc  = pd.DataFrame(list(coll_nationWide.aggregate(pipeline=pipe)))
-    #print(data_causeDeath)
+    abc  = pd.DataFrame(list(coll_nationWide.aggregate(pipeline=pipe)['result']))
+    #print(abc)
     data_causeDeath = abc.pivot(index='year', columns='cause', values='deaths')
     print data_causeDeath
     data_causeDeath.to_csv('./static/data/copyOfYearcauseDeath.csv',index=True)
@@ -366,7 +366,7 @@ def cleanAndLoad():
 
     """ year age-group death """
     pipe = [{'$group':{'_id': {'year':'$year','age_group':'$age_group'},'totalDeaths':{'$sum':'$deaths'}}},{'$project':{'year':'$_id.year', 'age_group':'$_id.age_group', 'deaths':'$totalDeaths','_id':0}}]
-    abc  = pd.DataFrame(list(coll_nationWide.aggregate(pipeline=pipe)))
+    abc  = pd.DataFrame(list(coll_nationWide.aggregate(pipeline=pipe)['result']))
     data_age_group_Death = abc.pivot(index='year', columns='age_group', values='deaths')
     #dataXYZ.rename(columns={'_id':'rx','totalDeaths':'deaths'},inplace=True)
     data_age_group_Death.to_csv('./static/data/copyOfYearAgeGroupDeath.csv',index=True)
@@ -377,7 +377,7 @@ def cleanAndLoad():
 
     """ year gender death """
     pipe = [{'$group':{'_id': {'year':'$year','gender':'$gender'},'totalDeaths':{'$sum':'$deaths'}}},{'$project':{'year':'$_id.year', 'gender':'$_id.gender', 'deaths':'$totalDeaths','_id':0}}]
-    abc  = pd.DataFrame(list(coll_nationWide.aggregate(pipeline=pipe)))
+    abc  = pd.DataFrame(list(coll_nationWide.aggregate(pipeline=pipe)['result']))
     data_gender_Death = abc.pivot(index='year', columns='gender', values='deaths')
     #dataXYZ.rename(columns={'_id':'rx','totalDeaths':'deaths'},inplace=True)
     data_gender_Death.to_csv('./static/data/copyOfYearGenderDeath.csv',index=True)
@@ -388,7 +388,7 @@ def cleanAndLoad():
 
     """ year race death """
     pipe = [{'$group':{'_id': {'year':'$year','race':'$race'},'totalDeaths':{'$sum':'$deaths'}}},{'$project':{'year':'$_id.year', 'race':'$_id.race', 'deaths':'$totalDeaths','_id':0}}]
-    abc  = pd.DataFrame(list(coll_nationWide.aggregate(pipeline=pipe)))
+    abc  = pd.DataFrame(list(coll_nationWide.aggregate(pipeline=pipe)['result']))
     data_race_Death = abc.pivot(index='year', columns='race', values='deaths')
     #dataXYZ.rename(columns={'_id':'rx','totalDeaths':'deaths'},inplace=True)
     data_race_Death.to_csv('./static/data/copyOfYearRaceDeath.csv',index=True)
